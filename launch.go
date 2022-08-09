@@ -7,6 +7,7 @@ import (
 	"rodrigo/go-REST/controllers"
 	"rodrigo/go-REST/data"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
@@ -27,7 +28,8 @@ func HandleRequest() {
 
 func main() {
 
-	data.Teams = data.GenerateTeams()
+	data.OpenDb()
+	defer data.Db.Close()
 	HandleRequest()
 
 }

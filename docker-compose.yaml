@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  db:
+    build: ./mysql/
+    container_name: first-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: teams_test
+    volumes: 
+      - myvolume:/var/lib/mysql  # /var/lib/mysql it's the mapping from where the volume is located at your computer.
+      - ./mysql:/docker-entrypoint-initdb.d # here is where the contents of your mysql folder (including baseData.sql) will go. You can access this folder using cd docker-entrypoint-initdb.d/ if u already inside the container
+
+                                         
+volumes:
+  myvolume:
+
+
+## To access MySQL command line.
+#docker exec -it first-mysql bash (Acessing mysql container)
+#mysql -uroot -ptest123   (Acessing mysql - user: root , password: test123)
